@@ -1,0 +1,57 @@
+.imgcenter{
+  display: block;
+  margin-left: 45vh;
+  margin-right: 45vh;
+  width: 25vw;
+  margin-top: -5vw;
+}
+
+div.home{
+  display: none;
+}
+
+div.searchcontent, div.moviecontainer{
+  display: none;
+}
+
+.card{
+    width: 28vw;
+    height: 110vh;
+}
+
+.movie-list-container{
+    margin-left: 5vw;
+    margin-right: 5vw;
+}
+
+.card-reveal{
+    color: #ffffff;
+    background-color: rgba(0,0,0,0.7) !important;
+  }
+  div.card-reveal span.card-title{
+    color: #ffffff !important;
+  }
+  .tabs{
+    background-color: transparent;
+  }
+  td, th{
+    padding: 5px 5px !important;
+  }
+  table.highlight>tbody>tr:hover{
+    background-color: rgba(238,110,115,0.6);
+  }
+  input[type=search]:focus{
+    border-bottom: 1px solid #ee6e73 !important;
+    box-shadow: 0 1px 0 0 #ee6e73 !important;
+  }
+
+.add-movie-suggestion{
+  text-align: left;
+  height:      40px;  
+  line-height: 40px;
+}
+
+#addToWatchList{
+  margin-bottom: 6vh;
+}
+
