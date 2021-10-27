@@ -1,40 +1,17 @@
 version: "3.7"
 services:
-  movie-app:
-    container_name: movie-app
-    image: nodejs
+  app:
+    container_name: app
     restart: always
     build: .
     ports:
-      - "9000"
+      - "3000:3000"
     links:
       - mongo
-    networks:
-      - mynet 
-
-  nginx:
-    container_name: mynginx
-    image: nginx:latest
-    ports: 
-      - "8080:80"
-    networks:
-    - mynet 
-  
   mongo:
     container_name: mongo
     image: mongo
     volumes:
       - ./data:/data/db
     ports:
-      - '27017:27017'
-    networks:
-      - mynet   
-
-volumes:
-  database: {}
-
-networks:
-  mynet:
-    driver: bridge
-
-
+      - "27017:27017"
