@@ -2,7 +2,8 @@ var express=require("express");
 var bodyParser=require("body-parser");
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/movielist');
+mongoose.connect('mongodb://mongo:27017/movielist');
+
 var db=mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
 db.once('open', function(callback){
@@ -24,23 +25,17 @@ app.post('/add_movie', function(req,res){
 	var data = {
 		"moviename": moviename
 	}
-db.collection('movie').insertOne(data,function(err, collection){
+	db.collection('movie').insertOne(data,function(err, collection){
 		if (err) throw err;
 		console.log("Record inserted Successfully");
 			
 	});
+	const movieform = document.querySelector('#create-form');
+ 	movieform.reset(); 
 	return res.redirect('index.html');
 })
 
-app.get('/clicks', (req, res) => {
-    db.collection('movie').find({}).toArray((err, result) => {
-      if (err) return console.log(err);
-      res.send(result);
-    });
-});
-
-
-app.get('/',function(req,res){
+app.get('/', function(req,res){
 res.set({
 	'Access-control-Allow-Origin': '*'
 	});
@@ -49,3 +44,10 @@ return res.redirect('index.html');
 
 
 console.log("server listening at port 3000");
+
+app.get('/clicks', (req, res) => {
+	db.collection('movie').find().toArray((err, result) => {
+	  if (err) return console.log(err);
+	  res.send(result);
+	});
+  });
