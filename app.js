@@ -2,7 +2,7 @@ var express=require("express");
 var bodyParser=require("body-parser");
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/movielist');
+mongoose.connect('mongodb://mongo:27017/movielist');
 
 var db=mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
