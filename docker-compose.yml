@@ -15,3 +15,11 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+  nginx:
+        build:
+          context: ./nginx
+        container_name: nginx
+        hostname: nginx
+        ports:
+            - "80:80" 
+  
