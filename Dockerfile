@@ -1,8 +1,9 @@
 FROM node:latest
-RUN mkdir -p /usr/src/app
+LABEL maintainer="Kim Gao <s4606920@uq.edu.au>"
+LABEL name="Kim Gao"
 WORKDIR /usr/src/app
-COPY package.json /usr/src/app
+COPY package.json .
 RUN npm install
-COPY . /usr/src/app
-EXPOSE 7500
-CMD ['node', 'app.js']
+COPY . ./
+EXPOSE 3000
+CMD ['npm', 'start']
