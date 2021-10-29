@@ -14,7 +14,7 @@ const accountDetails = document.querySelector('.account-details');
 const setupUserInfo = (data) => {
     let html = '';
     if(data != null){
-        html = `<h5>User Logged in. ${data.email}</h5>`;
+        html = `<h5>User: ${data.email}</h5>`;
     } else {
         html = `<h5>Login or Register an Account</h5>`;
     }
