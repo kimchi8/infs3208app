@@ -17,7 +17,6 @@ signupForm.addEventListener('submit', (e) => {
 
     //authenticate email and password
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        console.log("hello there from this function")
         const modal = document.querySelector('#modal-signup');
         M.Modal.getInstance(modal).close();
         signupForm.reset();
@@ -30,6 +29,7 @@ const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
     e.preventDefault;
     auth.signOut().then(() => {
+        alert("Signed out!");
         console.log("user has signed out");
     })
 })
@@ -41,9 +41,10 @@ login.addEventListener('submit', (e) =>{
     e.preventDefault;
     const email = login['login-email'].value;
     const password = login['login-password'].value;
-
+    console.log("login hello!")
     auth.signInWithEmailAndPassword(email, password).then((cred) =>{
         const modal = document.querySelector('#modal-login');
+        console.log("sucess!")
         M.Modal.getInstance(modal).close(); 
         login.reset(); 
     })
