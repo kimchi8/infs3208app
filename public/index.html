@@ -1,0 +1,209 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Compiled and minified CSS -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./index.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title>INFS3208 Movie App</title>
+</head>
+<body class="grey lighten-3">
+
+  <!-- NAVBAR -->
+  <nav class="z-depth-0 grey lighten-4">
+    <div class="nav-wrapper container">
+      <a href="#" class="brand-logo">
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li class="logged-in">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+          </li>
+          <li class="logged-in">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-watchlist" id="getWatchlist"> Watchlist</a>
+          </li>
+          <li class="logged-in">
+            <a href="#" class="grey-text" id="logout">Logout</a>
+          </li>
+          <li class="logged-out">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+          </li>
+          <li class="logged-out">
+            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+          </li>
+        </span>
+      </ul>
+    </div>
+  </nav>
+
+<div class="home container" style="margin-top: 40px;">
+    <img class="imgcenter" src="images/movie-logo.png" alt="movie logo">
+    <h1 class="center-align"> INFS3208 MOVIE PROJECT</h1>
+    <h3 class="center-align"> Register or Login to Get Started  </h3>
+</div>
+
+  <!-- WATCHLIST MODAL -->
+  <div id="modal-watchlist" class="modal">
+    <div class="modal-content">
+      <h4>WatchList</h4>
+      <ul class="movie collection">
+      </ul>          
+    </div>
+  </div>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="modal-login" class="modal">
+    <div class="modal-content">
+      <h4>Login</h4><br />
+      <form id="login-form">
+        <div class="input-field">
+          <input type="email" id="login-email" required />
+          <label for="login-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="login-password" required />
+          <label for="login-password">Your password</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+    <div class="modal-content center-align">
+      <h4>Account details</h4><br />
+      <div class="account-details"></div>
+    </div>
+  </div>
+
+ <!-- ADD MOVIE MODAL -->
+ <div class="moviecontainer container" style="margin-top: 40px;">
+    <form action="/add_movie" method="post">
+      <input class="box" type="text" name="moviename" id="moviename"
+		  placeholder="Enter a movie name" required />    
+       <button type="submit" id="submitDetails"name="submitDetails" value="Submit" 
+       class="btn indigo lighten-2 z-depth-0"> Add to Watchlist</button>
+   </form>
+</div>
+
+ <!-- Search Bar, only avaliable if user is signed In LIST -->
+  <div class="search-content" style="margin-top: 40px;">
+    <div class="searchcontent container" style="margin-top: 40px;"> 
+      <nav>
+      <div class="nav-wrapper">
+        <form id="movie-searchbar">
+          <div class="input-field">
+            <input id="text" type="search" placeholder="Search for a movie"required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons" id="search-close">close</i>
+          </div>
+        </form>
+      </div> 
+    </div>
+ 
+    </nav>
+  </div>
+
+   <!-- Homepage -->
+   <div class="container" style="margin-top: 40px;">
+    <div class="home-content" style="margin-top: 40px;">
+    </div>
+  </div>
+   <!-- movie list -->
+ <div class="movie-list-container" style="margin-top: 5vw;">
+  <div class="row"></div>   
+ </div>
+
+
+
+
+
+  
+  <!-- Firebase stuff: -->
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+   <script>
+  
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyB5c3XdST8TGpnzZloD04U6NqsI_JAbRcE",
+        authDomain: "infs3208-f5a57.firebaseapp.com",
+        projectId: "infs3208-f5a57",
+    };
+    firebase.initializeApp(config);
+    
+    // make auth and firestore references
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    // update firestore settings
+    db.settings({ timestampsInSnapshots: true });
+
+    const movieList = document.querySelector('.movie');
+    setInterval(function() {
+       fetch('/clicks', {method: 'GET'})
+        .then(function(response) {
+          if(response.ok) return response.json();
+          throw new Error('Request failed.');
+        })
+        .then(function(data) {
+          auth.onAuthStateChanged(user => {
+        if(user==null){
+          movieList.innerHTML = '<h5 class="center-align">Login to view movies</h5>';
+        } else{
+        if (data.length) {
+          let html = '';
+          data.forEach(doc => {
+          const li = `
+            <li class="collection-item avatar"> 
+              <h5 alt="" class="circle"> 🎬 </h5>
+              <h5> ${doc.moviename}</h5>
+              </li>
+          `;
+          html += li;
+          });
+          movieList.innerHTML = html
+        } else {
+          movieList.innerHTML = '<h5 class="center-align">No Movies to Show</h5>';
+        }}})})
+      
+        .catch(function(error) {
+          console.log(error);
+    });
+}, 1000);
+
+
+
+
+
+
+
+  </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+</body>
+</html>
