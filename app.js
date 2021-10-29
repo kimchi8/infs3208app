@@ -30,7 +30,7 @@ app.post('/add_movie', function(req,res){
 		console.log("Record inserted Successfully");
 	});
 
-	return res.redirect('http://localhost:3000/index.html');
+	return res.redirect('/index.html');
 })
 
 app.get('/', function(req,res){
